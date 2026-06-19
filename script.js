@@ -33,8 +33,8 @@ function showScene(id) {
     if (newScene) {
         newScene.classList.add("active");
         
-        // Reset del botón de negar cuando volvemos al menú
-        if (id === 'menu') {
+        // Reset del botón de negar cuando volvemos al menú o a la cita
+        if (id === 'menu' || id === 'date') {
             resetDenyButton();
         }
     }
@@ -46,12 +46,15 @@ function showScene(id) {
 function shrinkButton() {
     gameState.denyButtonSize -= CONFIG.buttonShrinkStep;
 
-    if (gameState.denyButtonSize < CONFIG.minButtonSize) {
-        gameState.denyButtonSize = CONFIG.minButtonSize;
-    }
-
     const denyBtn = document.getElementById("denyBtn");
-    denyBtn.style.transform = `scale(${gameState.denyButtonSize})`;
+    if (gameState.denyButtonSize <= CONFIG.minButtonSize) {
+        gameState.denyButtonSize = CONFIG.minButtonSize;
+        if (denyBtn) denyBtn.style.display = 'none'; // Desaparece por completo si insiste
+    } else {
+        if (denyBtn) {
+            denyBtn.style.transform = `scale(${gameState.denyButtonSize})`;
+        }
+    }
 }
 
 /**
@@ -61,6 +64,7 @@ function resetDenyButton() {
     gameState.denyButtonSize = 1;
     const denyBtn = document.getElementById("denyBtn");
     if (denyBtn) {
+        denyBtn.style.style.display = 'inline-block';
         denyBtn.style.transform = `scale(1)`;
     }
 }
@@ -72,7 +76,7 @@ function acceptProposal() {
     gameState.acceptedProposal = true;
     showScene("accepted");
     
-    // Efecto de confeti
+    // Efecto de confeti masivo
     createConfetti();
 }
 
@@ -81,17 +85,19 @@ function acceptProposal() {
  */
 function moveButton() {
     const btn = document.getElementById("runawayBtn");
-    
     if (!btn) return;
 
-    // Generar posición aleatoria
-    const x = Math.random() * CONFIG.moveButtonRange.x;
-    const y = Math.random() * CONFIG.moveButtonRange.y;
+    // Forzar fixed para evitar que dependa de contenedores relativos y se desplace correctamente
+    btn.style.position = "fixed";
+
+    // Generar posición aleatoria segura evitando los extremos absolutos de la pantalla
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
 
     // Aplicar posición con transición suave
-    btn.style.transition = "all 0.3s ease-out";
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
+    btn.style.transition = "all 0.2s ease-out";
+    btn.style.left = Math.max(20, x) + "px";
+    btn.style.top = Math.max(20, y) + "px";
 }
 
 /**
@@ -100,12 +106,13 @@ function moveButton() {
 function createConfetti() {
     const confettiPieces = ['❤️', '💕', '💖', '💗', '✨', '🌹'];
     
-    for (let i = 0; i < 10; i++) {
+    // Subimos la cantidad a 50 para que sea una ráfaga verdaderamente festiva
+    for (let i = 0; i < 50; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = confettiPieces[Math.floor(Math.random() * confettiPieces.length)];
         confetti.style.position = 'fixed';
         confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.top = '-20px';
+        confetti.style.top = -(Math.random() * 60 + 20) + 'px'; // Caída con desfase de tiempo natural
         confetti.style.fontSize = Math.random() * 20 + 20 + 'px';
         confetti.style.zIndex = '9999';
         confetti.style.pointerEvents = 'none';
@@ -113,14 +120,14 @@ function createConfetti() {
         document.body.appendChild(confetti);
 
         // Animar caída
-        let yPos = -20;
-        const speed = Math.random() * 3 + 2;
+        let yPos = parseInt(confetti.style.top);
+        const speed = Math.random() * 3 + 3;
         const xDrift = Math.random() * 4 - 2;
 
         const fall = setInterval(() => {
             yPos += speed;
             confetti.style.top = yPos + 'px';
-            confetti.style.left = (parseInt(confetti.style.left) + xDrift) + 'px';
+            confetti.style.left = (parseFloat(confetti.style.left) + xDrift) + 'px';
             confetti.style.opacity = Math.max(0, 1 - yPos / window.innerHeight);
 
             if (yPos > window.innerHeight) {
