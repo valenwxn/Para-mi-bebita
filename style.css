@@ -189,7 +189,7 @@ h2 {
 }
 
 @keyframes bounce {
-    0%, 100% {
+    0%, 100 {
         transform: scale(1);
     }
     50% {
@@ -284,64 +284,21 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    .story-text {
-        font-size: 1rem;
-    }
-
-    .content {
-        padding: 20px;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 1rem;
-    }
-
-    .button-group {
-        gap: 10px;
-    }
-
-    .ring-animation {
-        font-size: 3rem;
-    }
-
-    .hearts-animation {
-        font-size: 1.5rem;
-    }
-
-    .kiss-animation {
-        font-size: 2rem;
-        gap: 10px;
-    }
-
-    .sunset-animation {
-        font-size: 2rem;
-    }
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 1.8rem; }
+    .story-text { font-size: 1rem; }
+    .content { padding: 20px; }
+    .btn { padding: 12px 24px; font-size: 1rem; }
+    .button-group { gap: 10px; }
+    .ring-animation { font-size: 3rem; }
+    .hearts-animation { font-size: 1.5rem; }
+    .kiss-animation { font-size: 2rem; gap: 10px; }
+    .sunset-animation { font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    .button-group {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .btn {
-        width: 100%;
-    }
-  }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    .button-group { flex-direction: column; width: 100%; }
+    .btn { width: 100%; }
+}
