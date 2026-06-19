@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #ffffff;
+    text-align: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+#game {
+    min-height: 100vh;
+}
+
+.scene {
+    display: none;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.scene.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 40px;
+    max-width: 600px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    background: linear-gradient(45deg, #ff6b9d, #c06c84);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+h2 {
+    font-size: 2.5rem;
+    animation: slideDown 0.6s ease-out;
+}
+
+.emotional {
+    animation: bounce 0.8s ease-out;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #b19cd9;
+    font-style: italic;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    color: #d4a5d4;
+    line-height: 1.6;
+    animation: fadeIn 0.8s ease-out 0.3s both;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, #ff6b9d, #c06c84);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+}
+
+.btn-accent:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.6);
+}
+
+.btn-accent:active {
+    transform: translateY(-1px);
+}
+
+.shrink-btn {
+    transition: transform 0.2s ease-out;
+}
+
+.escape-btn {
+    position: absolute;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.8));
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.ring-animation {
+    font-size: 4rem;
+    animation: rotateAndPulse 2s ease-in-out infinite;
+}
+
+@keyframes rotateAndPulse {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(360deg) scale(1.1);
+    }
+}
+
+.hearts-animation {
+    display: flex;
+    gap: 10px;
+    font-size: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hearts-animation span {
+    animation: floatUp 2s ease-out infinite;
+    margin: 5px;
+}
+
+.hearts-animation span:nth-child(1) { animation-delay: 0s; }
+.hearts-animation span:nth-child(2) { animation-delay: 0.1s; }
+.hearts-animation span:nth-child(3) { animation-delay: 0.2s; }
+.hearts-animation span:nth-child(4) { animation-delay: 0.3s; }
+.hearts-animation span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes floatUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-60px) scale(1);
+    }
+}
+
+.kiss-animation {
+    font-size: 3rem;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.kiss-heart {
+    animation: kissFloat 1.5s ease-in-out infinite;
+}
+
+.kiss-heart:nth-child(1) { animation-delay: 0s; }
+.kiss-heart:nth-child(2) { animation-delay: 0.3s; }
+.kiss-heart:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes kissFloat {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2) translateY(-20px);
+        opacity: 0.8;
+    }
+}
+
+.sunset-animation {
+    font-size: 3rem;
+    animation: sunsetPulse 3s ease-in-out infinite;
+}
+
+@keyframes sunsetPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.3));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 20px rgba(255, 165, 0, 0.6));
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .story-text {
+        font-size: 1rem;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+
+    .button-group {
+        gap: 10px;
+    }
+
+    .ring-animation {
+        font-size: 3rem;
+    }
+
+    .hearts-animation {
+        font-size: 1.5rem;
+    }
+
+    .kiss-animation {
+        font-size: 2rem;
+        gap: 10px;
+    }
+
+    .sunset-animation {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+  }
